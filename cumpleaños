@@ -1,0 +1,9 @@
+#!/bin/bash
+hoy=`date +"%m%d"`
+cumple=0411
+if [ $hoy != $cumple ]
+then
+	echo " "
+else
+	notify-send "Feliz cumpleaños!!" "Que cumplas muchos más!" --icon=event-birthday-symbolic
+fi
