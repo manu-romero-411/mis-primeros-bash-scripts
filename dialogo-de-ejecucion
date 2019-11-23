@@ -1,0 +1,21 @@
+#!/bin/bash
+## SCRIPT PARA MANIPULAR EFICIENTEMENTE ARCHIVOS DE TEXTO EJECUTABLES EN THUNAR
+## (se necesita crear un .desktop apuntando a este ejecutable y establecerlo como el abridor por defecto de archivos .sh)
+## FECHA: 19 de marzo de 2017 (un año antes de "eso")
+
+if [[ ! -z $1 ]]; then
+	ARCHIVO=$1
+	yad --title="Abrir un archivo de texto ejecutable..." --text="   Se acaba de abrir un archivo de texto ejecutable. ¿Qué se debe hacer?" --button="Ejecutar en terminal" --button="Ejecutar normalmente" --button="Editar el archivo" --button="Cancelar" --window-icon=system-run
+	OPCION="$?"
+	if [[ $OPCION == 0 ]]; then
+		xfce4-terminal -x "$ARCHIVO"
+	elif [[ $OPCION == 1 ]]; then
+		bash -c "$ARCHIVO"
+	elif [[ $OPCION == 2 ]]; then
+		leafpad "$ARCHIVO"
+	else
+		exit 1
+	fi
+else
+	exit 1
+fi
