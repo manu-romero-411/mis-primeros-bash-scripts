@@ -4,5 +4,5 @@
 ## FECHA: 30 de abril de 2016
 
 echo "Guardando brillo..."
-cat /sys/class/backlight/acpi_video0/brightness > /home/usuario/Comandos/brillo-guardado
+cat /sys/class/backlight/acpi_video0/brightness > /home/usuario/Comandos/brillo-guardado ## SI SE VA A USAR ESTE SCRIPT, SE RECOMIENDA CAMBIAR EL ARCHIVO DE REDIRECCIONADO
 exit 0
