@@ -1,5 +1,8 @@
 #!/bin/bash
+## WORKAROUND DE UN BUG DE UBUNTU 14.04 QUE NO RESTAURABA EL BRILLO DE LA PANTALLA DEL PC PORTÁTIL CORRECTAMENTE AL REINICIAR 
+### (restauración de valor de brillo en reinicio)
+## FECHA: 30 de abril de 2016
 
 echo "Restaurando brillo de la sesión anterior..."
-cat /home/usuario/Comandos/brillo-guardado > /sys/class/backlight/acpi_video0/brightness
+cat /home/usuario/Comandos/brillo-guardado > /sys/class/backlight/acpi_video0/brightness ## SI SE VA A USAR ESTE SCRIPT, SE RECOMIENDA CAMBIAR EL ARGUMENTO DE cat
 exit 0
