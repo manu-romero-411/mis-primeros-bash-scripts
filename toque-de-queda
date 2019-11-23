@@ -1,0 +1,41 @@
+#!/bin/bash
+## ESTE SCRIPT IMPEDÍA EL USO DEL PC ENTRE LAS 22:00 Y LAS 7:00 ANTES DE LAS JORNADAS LABORALES.
+## SE USA cron PARA LLAMAR AL SCRIPT A DETERMINADA HORA (NOTA: cron NO ESTÁ BIEN IMPLEMENTADO EN EL SCRIPT)
+## FORMA PARTE DEL SISTEMA DE TOQUE DE QUEDA IMPLEMENTADO EN UN INTENTO FALLIDO DE SISTEMA DE ESTUDIO.
+## Fecha: 19 de febrero de 2017
+
+if [[ $1 != cron ]] && [[ $1 == inicio ]] && [[ $1 != apagacron ]]; then
+
+#CUANDO ARRANCA EL PC ENTRE LAS 22 Y LAS 6:59
+
+	HORA=$(date +%H)
+	DIA=$(date +%A)
+	if [[ $HORA -lt 07 ]] && [[ $DIA != sábado ]] && [[ $DIA != domingo ]] ; then
+		notify-send --icon=clock "No se puede usar el sistema" "Para usar el sistema debes esperar a las 7 de la mañana. En unos segundos se apagará el PC."
+		sleep 3
+		xfce4-session-logout -hf
+		#echo APAGADO
+	fi
+	if [[ $HORA -ge 22 ]] && [[ $DIA != sábado ]] && [[ $DIA != viernes ]]; then
+		notify-send --icon=clock "No se puede usar el sistema" "Para usar el sistema debes esperar a las 7:00 de mañana. En unos segundos se apagará el PC"
+                sleep 3
+                xfce4-session-logout -hf
+		#echo APAGADO
+	fi
+elif [[ $1 == cron ]] && [[ $1 != inicio ]] && [[ $1 != apagacron ]]; then
+
+#CUANDO SON LAS 21:59 DE LA VISPERA DE UN DIA LABORABLE
+
+	zenity --warning --text="Son casi las 22:00 de la noche. El PC está programado para apagarse a esa hora. Deberás esperar a mañana para seguir utilizándolo. Guarda el trabajo y pulsa el botón Aceptar y apagar, o espera unos segundos."
+	NUM="$?"
+	if [[ $NUM = 1 ]] || [[ $NUM == 0 ]]; then
+		xfce4-session-logout -hf
+		#echo APAGADO
+	fi
+elif [[ $1 != cron ]] && [[ $1 != inicio ]] && [[ $1 == apagacron ]]; then
+
+#ACCION QUE SE EJECUTA A LAS 22:00 DE LA VISPERA DE UN DIA LABORABLE
+
+	xfce4-session-logout -hf
+	#echo APAGADO
+fi
