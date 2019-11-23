@@ -1,0 +1,12 @@
+#!/system/bin/sh
+## WORKAROUND PARA ANDROID 4.4 x86 PARA ARMATOSTE: RESTAURAR NIVEL DE BRILLO GUARDADO CON LOS SCRIPTS subir-brillo Y bajar-brillo
+## FECHA: 14 de mayo de 2016
+
+if [ ! -f /system/guardar-brillo ]
+then
+	echo 4 > /sys/class/backlight/acpi_video0/brightness
+else
+	BRILLOGUARDADO=`cat /system/brillo-guardado`
+	echo $BRILLOGUARDADO > /sys/class/backlight/acpi_video0/brightness
+fi
+exit 0
