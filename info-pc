@@ -1,0 +1,50 @@
+#!/bin/bash
+## SCRIPT INVOCABLE CON UN ATAJO DE TECLADO, PARA VER INFORMACIÓN COMO EL uptime Y LAS TEMPERATURAS (ADAPTADO A XUBUNTU 14.04 PARA ARMATOSTE. ACTUALIZAR EN CASO DE REUTILIZAR)
+## FECHA DE ÚLTIMA MODIFICACIÓN: 8 de mayo de 2017
+
+temp=$(sensors | head -3 | tail -1 | cut -c 16-22)
+bateria=$(upower -i $(upower -e | grep BAT) | grep --color=never -E percentage|xargs|cut -d' ' -f2|sed s/%//)
+horaencendido=$(uptime -s | cut -c 12-19)
+diaencendido=$(uptime -s | cut -c 9-10)
+mesencendido=$(uptime -s | cut -c 6-7)
+#mesencendido=0
+if [[ $mesencendido == 01 ]]; then
+	mesencendido=enero
+elif [[ $mesencendido == 02 ]]; then
+	mesencendido=febrero
+elif [[ $mesencendido == 03 ]]; then
+	mesencendido=marzo
+elif [[ $mesencendido == 04 ]]; then
+	mesencendido=abril
+elif [[ $mesencendido == 05 ]]; then
+	mesencendido=mayo
+elif [[ $mesencendido == 06 ]]; then
+	mesencendido=junio
+elif [[ $mesencendido == 07 ]]; then
+	mesencendido=julio
+elif [[ $mesencendido == 08 ]]; then
+	mesencendido=agosto
+elif [[ $mesencendido == 09 ]]; then
+	mesencendido=septiembre
+elif [[ $mesencendido == 10 ]]; then
+	mesencendido=octubre
+elif [[ $mesencendido == 11 ]]; then
+	mesencendido=noviembre
+elif [[ $mesencendido == 12 ]]; then
+	mesencendido=diciembre
+else
+	notify-send "ERROR EN EL SCRIPT. NO PRETENDAS CORROMPER EL ESPACIO-TIEMPO, O ME APAGARÉ."
+	sleep 5
+	notify-send "A TOMAR POR CULO"
+	sleep 1
+	xfce4-session-logout -hf
+fi
+yearencendido=$(uptime -s | cut -c 1-4)
+notify-send "Info!" "$(date +'Son las %H:%M:%S del día %d de %B de %Y').
+
+El PC lleva encendido desde las $horaencendido del día $diaencendido de $mesencendido de $yearencendido.
+
+La temperatura de la CPU es de: $temp.
+
+Porcentaje de batería: $bateria %." --icon=clock
+exit 0
