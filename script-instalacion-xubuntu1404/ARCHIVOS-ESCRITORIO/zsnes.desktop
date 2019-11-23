@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=ZSNES
+Comment=Super Nintendo Entertainment System (TM) emulator
+Exec=zsnes %f
+Icon=zsnes
+Terminal=false
+Type=Application
+Categories=Game;
+MimeType=application/x-snes-rom;
+Keywords=emulator;snes;nintendo;super nintendo;super famicom;

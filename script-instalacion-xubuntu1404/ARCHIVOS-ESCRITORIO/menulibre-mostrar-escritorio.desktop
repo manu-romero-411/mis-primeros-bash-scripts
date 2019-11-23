@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Mostrar escritorio
+Icon=desktop
+Exec=wmctrl -k on
+NoDisplay=true
+Categories=Other;
+StartupNotify=true
+Terminal=false

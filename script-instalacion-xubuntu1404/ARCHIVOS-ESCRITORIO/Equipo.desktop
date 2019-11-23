@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Equipo
+Comment=Dispositivos locales y extraibles
+Exec=thunar computer:///
+Icon=computer
+Path=/home/usuario
+Terminal=false
+StartupNotify=true
