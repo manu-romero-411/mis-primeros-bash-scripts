@@ -1,0 +1,12 @@
+#!/bin/bash
+## SCRIPT DE DETECCIÓN DE HORA DEL SISTEMA PARA REPRODUCIR DOS m3u DISTINTOS (REQUIERE VLC)
+## HECHO COMO PARTE DE UN INTENTO FALLIDO DE REESTRUCTURACIÓN DEL TIEMPO LIBRE
+## FECHA: 17 de febrero de 2017
+
+cd ~
+if [[ $(date +%H) -ge 20 ]] && [[ $(date +%H) -le 23 ]]; then
+	vlc Música/playlist-solo-instrumentales.m3u
+else
+	vlc Música/playlist.m3u
+fi
+exit 0
