@@ -1,0 +1,11 @@
+#!/bin/bash
+## SCRIPT DE ARRANQUE DEL ANTIGUO SISTEMA XUBUNTU 14.04 DEL ARMATOSTE
+## FECHA DE ÚLTIMA MODIFICACIÓN: 29 de abril de 2017
+
+xrandr --output LVDS1 --set "scaling mode" Full
+xbcg -b 0.02 -c 0.75 -g 1.00
+/home/manu/Comandos/login-sound &
+sleep 3
+QUEHACER=$(cat /home/manu/Anotaciones)
+notify-send --icon=xfce4-notes-plugin "Cosas que hay que hacer" "$QUEHACER"
+exit 0
