@@ -1,4 +1,5 @@
 #!/bin/bash
+#Script creado el 10 de abril de 2016
 hoy=`date +"%m%d"`
 cumple=0411
 if [ $hoy != $cumple ]
