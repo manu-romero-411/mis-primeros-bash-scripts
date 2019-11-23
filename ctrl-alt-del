@@ -1,0 +1,41 @@
+#!/bin/bash
+## SCRIPT QUE INVOCA UNA PANTALLA DE CTRL+ALT+SUPR SIMILAR A LA DE WINDOWS XP
+## FECHA: 24 de febrero de 2017
+
+ACCION=$(zenity --list --radiolist --icon-name=xubuntu-logo --width=640 --height=300 --cancel-label=Cerrar --title="Opciones del sistema" --column="Opción" --column="Descripción" --window-icon=/usr/share/pixmaps/xubuntu-logo.svg \
+FALSE "Abrir administrador de tareas" \
+FALSE "Opciones de accesibilidad" \
+FALSE "Bloquear pantalla" \
+FALSE "Cerrar sesión" \
+FALSE "Suspender" \
+FALSE "Reiniciar" \
+FALSE "Apagar" )
+NUM="$?"
+if [[ $NUM = 0 ]]; then
+	if [[ -z $ACCION ]]; then
+		exit 1
+	elif [[ ! -z $ACCION ]]; then
+		if [[ $ACCION = "Abrir administrador de tareas" ]]; then
+			exit & xfce4-taskmanager
+		elif [[ $ACCION = "Opciones de accesibilidad" ]]; then
+			exit & xfce4-accessibility-settings
+		elif [[ $ACCION = "Bloquear pantalla" ]]; then
+			exit & xflock4
+			#exit & echo BLOQUEARPANTALLA
+		elif [[ $ACCION = "Cerrar sesión" ]]; then
+			exit & xfce4-session-logout -lf
+			#exit & echo CERRAR SESION
+		elif [[ $ACCION = "Suspender" ]]; then
+			exit & xfce4-session-logout -sf
+			#exit & echo SUSPENDER
+		elif [[ $ACCION = "Reiniciar" ]]; then
+			exit & xfce4-session-logout -rf
+			#exit & echo REINICIAR
+		elif [[ $ACCION = "Apagar" ]]; then
+			exit & xfce4-session-logout -hf
+		#exit & echo APAGAR
+		else
+			exit 1
+		fi
+	fi
+fi
