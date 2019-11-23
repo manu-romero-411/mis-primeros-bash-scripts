@@ -1,0 +1,20 @@
+#!/system/bin/sh
+## WORKAROUND PARA ANDROID 4.4 x86 PARA ARMATOSTE: BAJAR BRILLO
+## FECHA: 14 de mayo de 2016
+
+BRILLOACTUAL=`cat /sys/class/backlight/acpi_video0/brightness`
+BRILLONUEVO=`expr $BRILLOACTUAL - 1`
+if [ $BRILLONUEVO == 0 ]
+then
+	echo "El brillo está en su valor mínimo"
+fi
+if [ $BRILLONUEVO != 0 ]
+then
+	echo $BRILLONUEVO > /sys/class/backlight/acpi_video0/brightness
+fi
+if [ ! -f /system/brillo-guardado ]
+then
+        touch /system/brillo-guardado
+fi
+echo $BRILLONUEVO > /system/brillo-guardado
+exit 0
