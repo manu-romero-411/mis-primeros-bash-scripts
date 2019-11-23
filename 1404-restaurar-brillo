@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "Restaurando brillo de la sesión anterior..."
+cat /home/usuario/Comandos/brillo-guardado > /sys/class/backlight/acpi_video0/brightness
+exit 0
