@@ -1,0 +1,17 @@
+#!/bin/bash
+## SCRIPT QUE REPRODUCE UN SONIDO DE APAGADO SI ESTÁ INSTALADO play
+## FECHA DE ÚLTIMA MODIFICACIÓN: 29 de abril de 2017
+
+USUARIO=$(last | head -1 | cut -d ' ' -f1)
+TEMA=$(cat /home/$USUARIO/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml | grep SoundThemeName | cut -c 57- | grep -o '".*"' | cut -c 2- | sed 's/.$//g')
+SESION=$(ps -e | grep xfce4-session)
+if [[ -z $SESION ]]; then #WORKAROUND PARA QUE EL SONIDO NO SUENE AL RESTAURAR SESION TRAS BLOQUEO
+	if [ -d /usr/share/sounds/$TEMA ]; then
+		play "/usr/share/sounds/$TEMA/stereo/desktop-logout.ogg" &
+	elif [ -d /home/$USUARIO/.local/share/sounds/$TEMA ]; then
+		play "/home/$USUARIO/.local/share/sounds/$TEMA/stereo/desktop-logout.ogg" &
+	else
+		play "/usr/share/sounds/ubuntu/stereo/desktop-logout.ogg" &
+	fi
+fi
+exit 0
