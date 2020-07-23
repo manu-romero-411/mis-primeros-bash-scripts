@@ -1,0 +1,24 @@
+#!/bin/bash
+## [NO ACABADO] SCRIPT QUE MANEJARÁ LOS CAMBIOS DE GRÁFICA POR DEFECTO
+## FECHA DE CREACIÓN: 26 de febrero de 2020
+## FECHAS DE MODIFICACIÓN:
+
+execs=$(grep Exec $2)
+if [[ $1 == "-c" ]]; then
+	orig=$(echo $execs | sed s#" Exec"#"\nExec"#g | head -1 | cut -c 6-)
+	if ! echo "$cmdline2" | grep primusrun >/dev/null 2>&1; then
+		nuevo="primusrun $orig"
+	else
+		nuevo=$orig
+	fi
+	echo "$nuevo"
+elif [[ $1 == "-n" ]]; then
+	cmdline2="$(echo $execs | sed s#' Exec'#'\nExec'#g | tail -2  | head -1 | cut -c 6-)"
+	if echo "$cmdline2" | grep primusrun >/dev/null 2>&1; then
+		nuevo=$(echo "$cmdline2" | cut -c 11-)
+	else
+		nuevo="primusrun $cmdline2"
+	fi
+	sed -i s#"$cmdline2"#"$nuevo"#g "$2"
+fi
+exit 0
